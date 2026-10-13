@@ -2,7 +2,7 @@
 layout: post
 title: "Two agents can read a ticket. Only one should own the attempt."
 description: "A practical claim, handoff, and review contract for teams using coding agents without duplicating the same work."
-date: 2026-10-14
+date: 2026-10-13
 ---
 
 The easiest way to duplicate an AI task is to confuse seeing it with owning it. Two teammates open the backlog, notice the same small fix, and each starts a coding agent. By the time they compare notes, both have spent time collecting context and changed the same files.
