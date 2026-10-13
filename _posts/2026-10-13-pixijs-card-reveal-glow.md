@@ -40,7 +40,7 @@ This example uses a flat colored sprite to keep the integration small. Replace i
 ```js
 import { Application, Container, Sprite, Texture } from "pixi.js";
 import { loadVfxExportBundle } from "nixie-fx/export";
-import { PixiVfxRenderer } from "nixie-fx/pixi";
+import { PixiVfxRenderer, createPixiVfx2dProjection } from "nixie-fx/pixi";
 
 const app = new Application();
 await app.init({ width: 640, height: 480, background: "#101827" });
@@ -69,7 +69,10 @@ const face = new Sprite(Texture.WHITE);
 face.anchor.set(0.5);
 face.width = 200; face.height = 280; face.tint = 0x334155;
 card.addChild(face); app.stage.addChild(card);
-const vfx = new PixiVfxRenderer({ parent: app.stage });
+const vfx = new PixiVfxRenderer({
+  parent: app.stage,
+  projection: createPixiVfx2dProjection({ yAxis: "down" })
+});
 const glow = vfx.createEffect(effect, { autoStart: false });
 const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
 let elapsed = 0, revealing = false, fired = false;
