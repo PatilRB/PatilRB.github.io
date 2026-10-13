@@ -1,0 +1,54 @@
+{
+  "kind": "vfx-manifest",
+  "version": 1,
+  "generatedAt": "2026-10-13T11:48:59.862Z",
+  "sourceHash": "fnv1a32:49265b67",
+  "effects": [
+    {
+      "id": "comparison-burst",
+      "name": "Comparison burst",
+      "path": "effects/comparison-burst.json",
+      "sourceEffectFile": "comparison-burst.json",
+      "sourceEffectId": "comparison-burst",
+      "sourceHash": "fnv1a32:16de03f5",
+      "support": {
+        "status": "supported",
+        "overall": "supported",
+        "targetProfile": "portable",
+        "portableSubset": true,
+        "backends": {
+          "pixi2d": {
+            "backend": "pixi2d",
+            "status": "supported",
+            "warnings": [],
+            "blockers": []
+          },
+          "three3d": {
+            "backend": "three3d",
+            "status": "supported",
+            "warnings": [],
+            "blockers": []
+          }
+        },
+        "unsupportedModules": [],
+        "partialModules": [],
+        "warnings": []
+      },
+      "validation": {
+        "valid": true,
+        "errors": [],
+        "warnings": [],
+        "infos": [],
+        "blockers": []
+      }
+    }
+  ],
+  "assets": [],
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "warnings": [],
+    "infos": [],
+    "blockers": []
+  }
+}

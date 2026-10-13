@@ -1,0 +1,15 @@
+{
+  "app": "vfx-editor",
+  "kind": "project",
+  "version": 1,
+  "id": "n020-canvas-comparison",
+  "name": "Canvas versus runtime burst",
+  "settings": {
+    "effectDataPath": ".",
+    "outputPath": "out/vfx",
+    "assetRootPath": ".",
+    "allowExternalOutput": false
+  },
+  "createdAt": "2026-10-13T00:00:00.000Z",
+  "updatedAt": "2026-10-13T00:00:00.000Z"
+}
