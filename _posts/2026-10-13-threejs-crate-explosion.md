@@ -2,7 +2,7 @@
 layout: post
 title: "A one-shot crate explosion in the NixieFX Three.js runtime"
 description: "A procedural burst recipe, export-loading example and integration checklist for a Three.js crate-hit effect."
-date: 2026-10-13 00:00:00 +0400
+date: 2026-10-13 12:00:00 +0400
 ---
 
 Disclosure: This guide was prepared with AI assistance for a NixieFX marketing assignment. The values are explicit prototype choices. The implementation steps below describe a procedural Three.js effect; they are not a claim of measured performance, a physical explosion simulation or footage from a shipped game.
