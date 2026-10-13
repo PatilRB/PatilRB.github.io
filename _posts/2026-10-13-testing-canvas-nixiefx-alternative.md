@@ -2,7 +2,7 @@
 layout: post
 title: "Testing a small Canvas burst as a NixieFX alternative"
 description: "A reproducible comparison of a hand-coded Canvas 2D burst and a NixieFX export in PixiJS, with counts, screenshots and explicit limits."
-date: 2026-10-14 09:00:00 +0400
+date: 2026-10-13 09:00:00 +0400
 ---
 
 A team looking for NixieFX alternatives should start with the effect it actually needs. A single confirmation burst has different requirements from a collection of effects that artists must tune and developers must run in several renderers.
