@@ -2,7 +2,7 @@
 layout: post
 title: "Give a failing CI job a repair brief, not a blank cheque"
 description: "A reproducible Node import failure, a narrow repair brief, and the human checks that make an agent-assisted CI repair reviewable."
-date: 2026-10-15 09:00:00 +0400
+date: 2026-10-14 09:00:00 +0400
 ---
 
 A red CI job gives a team a symptom. It does not automatically give a coding agent a useful assignment. The first job is to identify which command failed, which environment ran it, and what evidence would distinguish a repair from a workaround.
