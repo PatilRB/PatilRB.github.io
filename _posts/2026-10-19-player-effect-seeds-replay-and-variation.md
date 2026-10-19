@@ -58,15 +58,15 @@ The comparison sorts records by particle index so it checks matching particles. 
 A test outline looks like this:
 
 ```js
-const first = sampleBurst({ seed: 2020, steps: 12, dt: 1 / 60 });
-const repeat = sampleBurst({ seed: 2020, steps: 12, dt: 1 / 60 });
-const varied = sampleBurst({ seed: 2021, steps: 12, dt: 1 / 60 });
+const first = sample(2020);
+const repeat = sample(2020);
+const varied = sample(2021);
 
-assert.deepEqual(first.positions, repeat.positions);
-assert.notDeepEqual(first.positions, varied.positions);
+assert.deepEqual(first.particles, repeat.particles);
+assert.notDeepEqual(first.particles, varied.particles);
 ```
 
-Here `sampleBurst` is a fixture helper, not a NixieFX API. The companion test creates the scene and adapter, reads `getParticleDebugTransforms()`, and destroys the renderer after collecting the result. Use the real helper or implement those steps; copying an undefined helper into a game is not a working integration.
+Here `sample` is the helper defined in the [complete source and test archive](https://patilrb.github.io/assets/day10/N-515-source.zip), not a NixieFX API. It creates the scene and adapter, advances twelve 1/60-second steps, reads `getParticleDebugTransforms()`, and destroys the renderer after collecting the result. Extract the archive, run `npm ci` and `npm run check`, then `npm run build` and serve `public/` over HTTP. The [runnable seed-comparison demo](https://patilrb.github.io/assets/day10/N-515-demo.html) exposes both comparison modes and replay.
 
 ## What the local test established
 
