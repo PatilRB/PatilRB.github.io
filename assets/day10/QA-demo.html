@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Day 10 QA repair fixtures</title><style>body{background:#0d1729;color:#edf5ff;font:18px system-ui;margin:24px}button,select{padding:10px;margin:5px;font:inherit}canvas{max-width:100%;height:auto;border:1px solid #64748b}p{max-width:1000px}a{color:#93c5fd}</style><h1>Three bounded repair examples</h1><p>Executed synthetic test applications. These recordings show scripted fixture actions, not footage from a production game.</p><label>Example <select id="case"><option>W-481</option><option>W-484</option><option>W-485</option></select></label><label>Version <select id="version"><option value="false">Faulty</option><option value="true">Fixed</option></select></label><button id="reset">Reset</button><button id="next">Next repro step</button><button id="record" disabled>Record this reproduction</button><button id="all" disabled>Record all six clips</button><p id="status">Ready</p><canvas width="1000" height="540" id="scene"></canvas><p><a href="QA-source.zip">Download the source and tests</a>. Recording controls run through the included local server. Real backend reconciliation, touch input, reward enforcement and device performance remain outside these fixtures.</p><div id="files"></div><script type="module">export class Reward {
+ constructor(fixed){this.fixed=fixed;this.claimed=false;this.requests=0;this.open();}
+ open(){this.view=this.fixed&&this.claimed?'claimed':'available';}
+ close(){this.view='closed';}
+ claim(success=true){if(this.view!=='available')return false;this.requests++;this.view='claiming';if(success){this.claimed=true;this.view='claimed';}else this.view='available';return true;}
+}
+export class Battle {
+ constructor(fixed){this.fixed=fixed;this.history=[];this.applications=0;this.seen=new Set();}
+ receive(id,accepted=true){if(!accepted)return;if(!this.seen.has(id)){this.applications++;this.seen.add(id);}if(!this.fixed||!this.history.includes(id))this.history.push(id);}
+}
+export class Inventory {
+ constructor(fixed){this.fixed=fixed;this.item={id:'sword-1',quantity:1,slot:0};this.visible=true;this.dragging=false;}
+ begin(){this.dragging=true;this.visible=false;}
+ drop(slot){if(!this.dragging)return;this.dragging=false;if(slot===0||slot===1){this.item.slot=slot;this.visible=true;}else if(this.fixed)this.visible=true;}
+ reopen(){this.visible=true;this.dragging=false;}
+}
+export function make(kind,fixed){return kind==='W-481'?new Reward(fixed):kind==='W-484'?new Battle(fixed):new Inventory(fixed);}
+export const cases={
+ 'W-481':{title:'Reward panel after reopening',steps:['Open panel','Claim success','Close panel','Reopen panel','Attempt claim again'],run(m,n){if(n===0)m.open();if(n===1)m.claim(true);if(n===2)m.close();if(n===3)m.open();if(n===4)m.claim(true);}},
+ 'W-484':{title:'One confirmation across reconnect',steps:['Start battle: no history','Receive attack-1','Disconnect; retain state','Reconnect: receive attack-1 again'],run(m,n){if(n===1||n===3)m.receive('attack-1');}},
+ 'W-485':{title:'Cancelled inventory drag',steps:['Open inventory: sword-1 in slot 0','Begin drag','Release over invalid area','Inspect original slot','Close and reopen inventory'],run(m,n){if(n===1)m.begin();if(n===2)m.drop(-1);if(n===4)m.reopen();}}
+};
+
+const $=s=>document.querySelector(s),canvas=$('#scene'),ctx=canvas.getContext('2d');let kind='W-481',fixed=false,model,step=-1,action='Ready';const results=[];
+function reset(){kind=$('#case').value;fixed=$('#version').value==='true';model=make(kind,fixed);step=-1;action='Ready';draw();}
+function line(text,x,y,color='#edf5ff',font='22px system-ui'){ctx.fillStyle=color;ctx.font=font;ctx.fillText(text,x,y);}
+function draw(){ctx.fillStyle='#13213a';ctx.fillRect(0,0,1000,540);line(`${kind} · ${cases[kind].title}`,28,48,'#fff','bold 28px system-ui');line(`${fixed?'FIXED':'FAULTY'} · synthetic fixture · scripted inputs`,28,84,fixed?'#86efac':'#fda4af');line(`Step ${step+1}/${cases[kind].steps.length}: ${action}`,28,133,'#fde68a');ctx.fillStyle='#243854';ctx.fillRect(28,160,944,252);
+ if(kind==='W-481'){line(`Panel: ${model.view}`,55,210);line(`Persistent claim: ${model.claimed?'claimed':'available'}`,55,252);line(`Claim requests sent: ${model.requests}`,55,294);line(`Can submit: ${model.view==='available'}`,55,336);}
+ if(kind==='W-484'){line(`History rows: ${model.history.length}`,55,210);line(`Gameplay applications: ${model.applications}`,55,252);line(`History: ${model.history.join(' | ')||'(empty)'}`,55,294);line('Replayed confirmation ID: attack-1',55,336);}
+ if(kind==='W-485'){line(`Model: sword-1 · quantity ${model.item.quantity} · slot ${model.item.slot}`,55,210);line(`Item view: ${model.visible?'VISIBLE':'MISSING'}`,55,252,model.visible?'#86efac':'#fda4af');line(`Dragging: ${model.dragging}`,55,294);if(model.visible){ctx.fillStyle='#a7f3d0';ctx.fillRect(730,205,140,100);line('sword-1',746,265,'#052e16');}}
+ line('Input indicator: '+action,28,456,'#93c5fd');line('Scripted local test; no production game or human acceptance claimed.',28,502,'#cbd5e1','18px system-ui');}
+function next(){if(step>=cases[kind].steps.length-1)return;step++;action=cases[kind].steps[step];cases[kind].run(model,step);draw();}
+const pause=ms=>new Promise(r=>setTimeout(r,ms));
+async function recordOne(){reset();const chunks=[],stream=canvas.captureStream(15),recorder=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9'});recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};const done=new Promise(resolve=>recorder.onstop=resolve);recorder.start();let animation=requestAnimationFrame(function frame(){draw();animation=requestAnimationFrame(frame);});await pause(700);for(let i=0;i<cases[kind].steps.length;i++){next();await pause(900);}await pause(700);recorder.stop();await done;cancelAnimationFrame(animation);stream.getTracks().forEach(t=>t.stop());const name=`${kind}-${fixed?'fixed':'faulty'}.webm`,blob=new Blob(chunks,{type:'video/webm'}),response=await fetch('/recordings/'+name,{method:'POST',body:blob});if(!response.ok)throw Error('Recording could not be saved');const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.textContent=name;$('#files').append(a,document.createElement('br'));results.push({kind,fixed,steps:cases[kind].steps,finalState:JSON.parse(JSON.stringify(model)),bytes:blob.size,userAgent:navigator.userAgent});await fetch('/recordings/environment.json',{method:'POST',body:JSON.stringify({userAgent:navigator.userAgent,recordings:results},null,2)});$('#status').textContent=`Saved ${name}, ${blob.size} bytes`;}
+$('#reset').onclick=reset;$('#case').onchange=reset;$('#version').onchange=reset;$('#next').onclick=next;$('#record').onclick=()=>recordOne().catch(e=>$('#status').textContent=e.message);$('#all').onclick=async()=>{try{$('#all').disabled=true;for(const id of Object.keys(cases))for(const value of ['false','true']){$('#case').value=id;$('#version').value=value;await recordOne();}$('#status').textContent='Saved all six genuine browser fixture recordings';}catch(e){$('#status').textContent=e.message;}finally{$('#all').disabled=false;}};reset();
+</script></html>

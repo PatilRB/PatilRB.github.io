@@ -1,0 +1,80 @@
+{
+  "environment": {
+    "node": "v22.23.2",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "sourceSha256": "c4790242f821760224eb8e90827bbc525fac94f1895f855e7d73641ffd0353d6",
+  "results": [
+    {
+      "id": "W-481",
+      "name": "faulty: reopen preserves claimed and rejects duplicate request",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n2 !== 1\n"
+    },
+    {
+      "id": "W-481",
+      "name": "faulty: failed claim permits retry",
+      "pass": true
+    },
+    {
+      "id": "W-484",
+      "name": "faulty: duplicate confirmation has one history row and one gameplay application",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n2 !== 1\n"
+    },
+    {
+      "id": "W-484",
+      "name": "faulty: rejection allows a later accepted action",
+      "pass": true
+    },
+    {
+      "id": "W-485",
+      "name": "faulty: invalid drop immediately restores the item view",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\nfalse !== true\n"
+    },
+    {
+      "id": "W-485",
+      "name": "faulty: valid drop moves once and survives reopen",
+      "pass": true
+    },
+    {
+      "id": "W-481",
+      "name": "fixed: reopen preserves claimed and rejects duplicate request",
+      "pass": true
+    },
+    {
+      "id": "W-481",
+      "name": "fixed: failed claim permits retry",
+      "pass": true
+    },
+    {
+      "id": "W-484",
+      "name": "fixed: duplicate confirmation has one history row and one gameplay application",
+      "pass": true
+    },
+    {
+      "id": "W-484",
+      "name": "fixed: rejection allows a later accepted action",
+      "pass": true
+    },
+    {
+      "id": "W-485",
+      "name": "fixed: invalid drop immediately restores the item view",
+      "pass": true
+    },
+    {
+      "id": "W-485",
+      "name": "fixed: valid drop moves once and survives reopen",
+      "pass": true
+    }
+  ],
+  "counts": {
+    "faultyPassed": 3,
+    "faultyFailed": 3,
+    "fixedPassed": 6,
+    "fixedFailed": 0
+  },
+  "scope": "Executed synthetic browser models; no commercial game, real network/server, touch-device or production validation."
+}

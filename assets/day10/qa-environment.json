@@ -1,0 +1,130 @@
+{
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+  "recordings": [
+    {
+      "kind": "W-481",
+      "fixed": false,
+      "steps": [
+        "Open panel",
+        "Claim success",
+        "Close panel",
+        "Reopen panel",
+        "Attempt claim again"
+      ],
+      "finalState": {
+        "fixed": false,
+        "claimed": true,
+        "requests": 2,
+        "view": "claimed"
+      },
+      "bytes": 125317,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    },
+    {
+      "kind": "W-481",
+      "fixed": true,
+      "steps": [
+        "Open panel",
+        "Claim success",
+        "Close panel",
+        "Reopen panel",
+        "Attempt claim again"
+      ],
+      "finalState": {
+        "fixed": true,
+        "claimed": true,
+        "requests": 1,
+        "view": "claimed"
+      },
+      "bytes": 118996,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    },
+    {
+      "kind": "W-484",
+      "fixed": false,
+      "steps": [
+        "Start battle: no history",
+        "Receive attack-1",
+        "Disconnect; retain state",
+        "Reconnect: receive attack-1 again"
+      ],
+      "finalState": {
+        "fixed": false,
+        "history": [
+          "attack-1",
+          "attack-1"
+        ],
+        "applications": 1,
+        "seen": {}
+      },
+      "bytes": 135520,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    },
+    {
+      "kind": "W-484",
+      "fixed": true,
+      "steps": [
+        "Start battle: no history",
+        "Receive attack-1",
+        "Disconnect; retain state",
+        "Reconnect: receive attack-1 again"
+      ],
+      "finalState": {
+        "fixed": true,
+        "history": [
+          "attack-1"
+        ],
+        "applications": 1,
+        "seen": {}
+      },
+      "bytes": 126021,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    },
+    {
+      "kind": "W-485",
+      "fixed": false,
+      "steps": [
+        "Open inventory: sword-1 in slot 0",
+        "Begin drag",
+        "Release over invalid area",
+        "Inspect original slot",
+        "Close and reopen inventory"
+      ],
+      "finalState": {
+        "fixed": false,
+        "item": {
+          "id": "sword-1",
+          "quantity": 1,
+          "slot": 0
+        },
+        "visible": true,
+        "dragging": false
+      },
+      "bytes": 150499,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    },
+    {
+      "kind": "W-485",
+      "fixed": true,
+      "steps": [
+        "Open inventory: sword-1 in slot 0",
+        "Begin drag",
+        "Release over invalid area",
+        "Inspect original slot",
+        "Close and reopen inventory"
+      ],
+      "finalState": {
+        "fixed": true,
+        "item": {
+          "id": "sword-1",
+          "quantity": 1,
+          "slot": 0
+        },
+        "visible": true,
+        "dragging": false
+      },
+      "bytes": 149362,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36"
+    }
+  ]
+}
