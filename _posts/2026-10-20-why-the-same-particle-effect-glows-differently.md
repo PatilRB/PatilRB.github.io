@@ -2,7 +2,7 @@
 layout: post
 title: "Why the Same Particle Effect Glows Differently in PixiJS and Three.js"
 description: "A practical comparison protocol for separating NixieFX simulation, backend support, preview bloom, exposure, and the host game's post-processing pipeline."
-date: 2026-10-20 12:00:00 +0400
+date: 2026-10-20 11:00:00 +0400
 ---
 
 A particle effect can use the same seed, lifetime, velocity, and color curve in two previews and still produce different final pixels. That does not automatically mean one backend is broken.
@@ -136,4 +136,3 @@ Accept a cross-backend effect only when the record distinguishes three things:
 - what the host's bloom, exposure, tone mapping, and background added.
 
 Once those layers are named, “the glow looks different” becomes a bounded engineering question instead of an invitation to tweak values until two screenshots happen to resemble each other.
-
